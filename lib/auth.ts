@@ -93,7 +93,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     authorized({ auth, request }) {
-      const path = request.nextUrl.pathname;
+      const path = request?.nextUrl?.pathname || new URL(request?.url || "").pathname;
       // Allow access to login page and API routes
       if (path.startsWith("/login") || path.startsWith("/api")) {
         return true;
