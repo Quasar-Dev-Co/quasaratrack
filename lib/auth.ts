@@ -12,10 +12,18 @@ interface RTDBUser {
   role: string;
 }
 
+// Ensure NEXTAUTH_URL always has protocol
+const nextAuthUrl = process.env.NEXTAUTH_URL
+  ? (process.env.NEXTAUTH_URL.startsWith("http")
+    ? process.env.NEXTAUTH_URL
+    : `https://${process.env.NEXTAUTH_URL}`)
+  : undefined;
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   trustHost: true,
   secret: process.env.NEXTAUTH_SECRET,
+  ...(nextAuthUrl ? { url: nextAuthUrl } : {}),
   pages: {
     signIn: "/login",
   },
