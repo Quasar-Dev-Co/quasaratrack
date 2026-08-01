@@ -17,8 +17,12 @@ export function proxy(request: NextRequest) {
       return NextResponse.next();
     }
 
-    // Check for NextAuth session cookie
+    // Check for NextAuth v5 session cookie
+    // v5 uses "authjs.session-token" (dev) and "__Secure-authjs.session-token" (prod)
+    // v4 used "next-auth.session-token" — check both for safety
     const sessionCookie =
+      request.cookies.get("authjs.session-token")?.value ||
+      request.cookies.get("__Secure-authjs.session-token")?.value ||
       request.cookies.get("next-auth.session-token")?.value ||
       request.cookies.get("__Secure-next-auth.session-token")?.value;
 
@@ -31,7 +35,6 @@ export function proxy(request: NextRequest) {
 
     return NextResponse.next();
   } catch {
-    // If anything fails, let the request through — don't block with 500
     return NextResponse.next();
   }
 }
