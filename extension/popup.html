@@ -96,9 +96,6 @@
 
     <div class="tabs">
       <button class="tab-btn active" data-tab="today">Today</button>
-      <button class="tab-btn" data-tab="summary">Summary</button>
-      <button class="tab-btn" data-tab="activity">Activity Log</button>
-      <button class="tab-btn" data-tab="settings">Settings</button>
     </div>
 
     <!-- TODAY TAB -->
@@ -152,132 +149,12 @@
       </div>
     </div>
 
-    <!-- SUMMARY TAB -->
-    <div id="summary-tab" class="tab-content">
-      <div id="summary-empty" class="empty-state">
-        <div class="empty-icon">&#x1F4CA;</div>
-        <div>No AI summary yet.</div>
-        <div class="empty-hint">Click "Generate AI Summary Now" to analyze your workday.</div>
-      </div>
-
-      <div id="summary-rich" style="display:none;">
-        <div class="score-header">
-          <div class="score-ring-wrapper">
-            <svg class="score-ring" width="80" height="80" viewBox="0 0 80 80">
-              <circle cx="40" cy="40" r="34" fill="none" stroke="#1a2046" stroke-width="6"/>
-              <circle id="score-ring-fill" cx="40" cy="40" r="34" fill="none" stroke="#7c3aed" stroke-width="6"
-                stroke-dasharray="213.6" stroke-dashoffset="213.6" stroke-linecap="round" transform="rotate(-90 40 40)"
-                style="transition: stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1), stroke 0.6s ease;"/>
-            </svg>
-            <div class="score-ring-text">
-              <div id="score-number" class="score-number">0</div>
-              <div id="score-label" class="score-label">—</div>
-            </div>
-          </div>
-          <div class="score-headline-wrapper">
-            <div id="summary-headline" class="summary-headline"></div>
-            <div id="summary-overview" class="summary-overview"></div>
-          </div>
-        </div>
-
-        <div class="section-title">Key Metrics</div>
-        <div id="metrics-grid" class="metrics-grid"></div>
-
-        <div id="tasks-section">
-          <div class="section-title">Tasks Completed</div>
-          <div id="tasks-list" class="tasks-list"></div>
-        </div>
-
-        <div id="topsites-section">
-          <div class="section-title">Top Sites</div>
-          <div id="topsites-list" class="topsites-list"></div>
-        </div>
-
-        <div id="timeline-section">
-          <div class="section-title">Activity Timeline</div>
-          <div id="timeline-list" class="timeline-list"></div>
-        </div>
-
-        <div id="idle-section">
-          <div class="section-title">Idle Periods</div>
-          <div id="idle-list" class="idle-list"></div>
-        </div>
-
-        <div class="dual-col">
-          <div id="strengths-section">
-            <div class="section-title positive">Strengths</div>
-            <div id="strengths-list" class="bullet-list positive-list"></div>
-          </div>
-          <div id="concerns-section">
-            <div class="section-title negative">Concerns</div>
-            <div id="concerns-list" class="bullet-list negative-list"></div>
-          </div>
-        </div>
-
-        <div id="recs-section">
-          <div class="section-title accent">Recommendations</div>
-          <div id="recs-list" class="bullet-list accent-list"></div>
-        </div>
-      </div>
-
-      <div class="sync-section" style="margin-top:16px;">
-        <button id="summary-sync-btn" class="sync-btn">
-          <span class="sync-icon">&#x21bb;</span> Generate AI Summary Now
-        </button>
-        <div id="summary-sync-status" class="sync-status"></div>
-      </div>
-    </div>
-
-    <!-- ACTIVITY TAB -->
-    <div id="activity-tab" class="tab-content">
-      <div class="section-title">Detailed Action Log</div>
-      <div id="activity-log-list" class="activity-log-list">
-        <div class="empty-state">No actions logged yet.</div>
-      </div>
-    </div>
-
-    <!-- SETTINGS TAB -->
-    <div id="settings-tab" class="tab-content">
-      <div class="form-group">
-        <label for="openai-key">OpenAI API Key</label>
-        <input type="password" id="openai-key" placeholder="sk-..." />
-        <small class="hint">Used to generate daily activity summaries.</small>
-      </div>
-
-      <div class="form-group">
-        <label for="apps-script-url">Google Apps Script URL</label>
-        <input type="url" id="apps-script-url" placeholder="https://script.google.com/macros/s/.../exec" />
-        <small class="hint">Deploy the provided Apps Script and paste the web app URL here.</small>
-      </div>
-
-      <div class="form-group">
-        <label for="idle-threshold">Inactivity Threshold: <span id="idle-value">5</span> minutes</label>
-        <input type="range" id="idle-threshold" min="1" max="30" value="5" />
-      </div>
-
-      <div class="form-group">
-        <label>
-          <input type="checkbox" id="auto-sync" checked />
-          Auto-sync at end of day
-        </label>
-      </div>
-
-      <div class="form-group" id="sync-time-group">
-        <label for="sync-time">Auto-sync Time</label>
-        <input type="time" id="sync-time" value="18:00" />
-      </div>
-
-      <button id="save-settings" class="save-btn">Save Settings</button>
-      <div id="save-status" class="save-status"></div>
-    </div>
-
   </div><!-- /main-app -->
 
   <!-- bcryptjs for password hashing (needed in popup for signup) -->
   <script src="lib/bcryptjs.min.js"></script>
   <!-- Auth + settings + popup logic -->
   <script src="auth.js"></script>
-  <script src="settings.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

@@ -107,65 +107,15 @@ function setupAuthUI() {
 async function setupMainUI() {
   const settings = await getSettings();
 
-  document.getElementById("openai-key").value = settings.openaiApiKey || "";
-  document.getElementById("apps-script-url").value = settings.appsScriptUrl || "";
-  document.getElementById("idle-threshold").value = settings.idleThresholdMinutes || 5;
-  document.getElementById("idle-value").textContent = settings.idleThresholdMinutes || 5;
-  document.getElementById("auto-sync").checked = settings.autoSyncEnabled !== false;
-  document.getElementById("sync-time").value = settings.autoSyncTime || "18:00";
-
   renderTodayDate();
-
-  document.getElementById("idle-threshold").addEventListener("input", (e) => {
-    document.getElementById("idle-value").textContent = e.target.value;
-  });
-
-  document.querySelectorAll(".tab-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-      document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-      btn.classList.add("active");
-      const target = document.getElementById(`${btn.dataset.tab}-tab`);
-      target.style.animation = "none";
-      void target.offsetWidth;
-      target.style.animation = "";
-      target.classList.add("active");
-      if (btn.dataset.tab === "summary") loadSummary();
-      if (btn.dataset.tab === "activity") loadActivityLog();
-    });
-  });
 
   showLoadingSkeleton();
   refreshToday();
   todayRefreshTimer = setInterval(refreshToday, 5000);
 
-  document.getElementById("summary-sync-btn").addEventListener("click", () => {
-    triggerSync("summary-sync-btn", "summary-sync-status", () => {
-      loadSummary();
-      refreshToday();
-    });
-  });
-
-  document.getElementById("save-settings").addEventListener("click", async () => {
-    const newSettings = {
-      openaiApiKey: document.getElementById("openai-key").value.trim(),
-      appsScriptUrl: document.getElementById("apps-script-url").value.trim(),
-      idleThresholdMinutes: parseInt(document.getElementById("idle-threshold").value),
-      autoSyncEnabled: document.getElementById("auto-sync").checked,
-      autoSyncTime: document.getElementById("sync-time").value
-    };
-    await saveSettings(newSettings);
-
-    const status = document.getElementById("save-status");
-    status.textContent = "Settings saved!";
-    status.style.color = "var(--success)";
-    setTimeout(() => { status.textContent = ""; }, 2000);
-  });
-
   document.getElementById("sync-btn").addEventListener("click", () => {
     triggerSync("sync-btn", "sync-status", () => {
       refreshToday();
-      loadSummary();
     });
   });
 
