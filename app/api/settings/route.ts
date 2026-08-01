@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import { NextRequest, NextResponse } from "next/server";
 import { ref, get, set } from "firebase/database";
 import { db } from "@/lib/firebase";
