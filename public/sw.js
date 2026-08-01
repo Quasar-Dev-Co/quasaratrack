@@ -11,7 +11,6 @@ const STATIC_ASSETS = [
 
 // Install: cache the shell
 self.addEventListener("install", (event) => {
-  // @ts-ignore
   event.waitUntil(
     caches
       .open(CACHE_NAME)
@@ -22,7 +21,6 @@ self.addEventListener("install", (event) => {
 
 // Activate: clean old caches
 self.addEventListener("activate", (event) => {
-  // @ts-ignore
   event.waitUntil(
     caches
       .keys()
@@ -39,8 +37,7 @@ self.addEventListener("activate", (event) => {
 
 // Fetch: network-first, fallback to cache, then offline shell
 self.addEventListener("fetch", (event) => {
-  // @ts-ignore
-  const request = event.request;
+  var request = event.request;
 
   // Skip non-GET requests and browser extensions
   if (
@@ -52,21 +49,22 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // @ts-ignore
   event.respondWith(
     fetch(request)
       .then((response) => {
-        const clone = response.clone();
+        var clone = response.clone();
         caches.open(CACHE_NAME).then((cache) => {
-          cache.put(request, clone).catch(() => {});
+          cache.put(request, clone).catch(function () {});
         });
         return response;
       })
-      .catch(() => {
-        return caches.match(request).then((cached) => {
+      .catch(function () {
+        return caches.match(request).then(function (cached) {
           if (cached) return cached;
           if (request.mode === "navigate") {
-            return caches.match("/").then((fallback) => fallback as Response);
+            return caches.match("/").then(function (fallback) {
+              return fallback;
+            });
           }
           throw new Error("Network error and no cache");
         });
