@@ -1,0 +1,309 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ──────────────────────────────────────────────
+   Light theme — clean with purple accents
+   ────────────────────────────────────────────── */
+:root {
+  --background: oklch(0.98 0.005 280);
+  --foreground: oklch(0.15 0.02 270);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.02 270);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.02 270);
+  --primary: oklch(0.50 0.28 285);
+  --primary-foreground: oklch(0.98 0.01 280);
+  --secondary: oklch(0.95 0.015 280);
+  --secondary-foreground: oklch(0.20 0.03 285);
+  --muted: oklch(0.95 0.012 280);
+  --muted-foreground: oklch(0.50 0.02 280);
+  --accent: oklch(0.93 0.03 290);
+  --accent-foreground: oklch(0.30 0.10 285);
+  --destructive: oklch(0.65 0.24 15);
+  --border: oklch(0.90 0.015 280);
+  --input: oklch(0.90 0.015 280);
+  --ring: oklch(0.50 0.28 285);
+  --chart-1: oklch(0.50 0.28 285);
+  --chart-2: oklch(0.72 0.20 165);
+  --chart-3: oklch(0.78 0.16 55);
+  --chart-4: oklch(0.65 0.25 330);
+  --chart-5: oklch(0.55 0.20 200);
+  --radius: 0.75rem;
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.15 0.02 270);
+  --sidebar-primary: oklch(0.50 0.28 285);
+  --sidebar-primary-foreground: oklch(0.98 0.01 280);
+  --sidebar-accent: oklch(0.95 0.015 280);
+  --sidebar-accent-foreground: oklch(0.20 0.03 285);
+  --sidebar-border: oklch(0.90 0.015 280);
+  --sidebar-ring: oklch(0.50 0.28 285);
+}
+
+/* ──────────────────────────────────────────────
+   Dark theme — matches the Chrome extension exactly
+   Deep navy base + purple/magenta brand gradients
+   ────────────────────────────────────────────── */
+.dark {
+  /* Plugin: --bg-0: #050816, --bg-1: #0a0f24, --bg-2: #111634, --bg-3: #161c40 */
+  --background: #050816;
+  --foreground: #e8eaf6;
+
+  /* Plugin: --glass: rgba(22, 28, 64, 0.55) → solid approximation --bg-3 */
+  --card: #111634;
+  --card-foreground: #e8eaf6;
+  --popover: #161c40;
+  --popover-foreground: #e8eaf6;
+
+  /* Plugin: --accent: #7c3aed */
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+
+  /* Plugin: --bg-3: #161c40 */
+  --secondary: #161c40;
+  --secondary-foreground: #e8eaf6;
+
+  --muted: #161c40;
+  /* Plugin: --text-dim: #a4adcf */
+  --muted-foreground: #a4adcf;
+
+  /* Plugin: --gradient-soft colors */
+  --accent: rgba(124, 92, 255, 0.15);
+  --accent-foreground: #c084fc;
+
+  /* Plugin: --danger: #f87171 */
+  --destructive: #f87171;
+
+  /* Plugin: --glass-border: rgba(124, 92, 255, 0.18) */
+  --border: rgba(124, 92, 255, 0.18);
+  --input: rgba(124, 92, 255, 0.15);
+
+  /* Plugin: --accent: #7c3aed */
+  --ring: #7c3aed;
+
+  /* Chart colors from plugin palette */
+  --chart-1: #7c3aed;
+  --chart-2: #34d399;
+  --chart-3: #fbbf24;
+  --chart-4: #d946ef;
+  --chart-5: #60a5fa;
+
+  /* Sidebar: --bg-1: #0a0f24 */
+  --sidebar: #0a0f24;
+  --sidebar-foreground: #e8eaf6;
+  --sidebar-primary: #7c3aed;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(124, 92, 255, 0.12);
+  --sidebar-accent-foreground: #c084fc;
+  --sidebar-border: rgba(124, 92, 255, 0.15);
+  --sidebar-ring: #7c3aed;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: "opsz" 32;
+    /* Plugin background: radial gradients + linear */
+    background:
+      radial-gradient(900px 500px at 100% -10%, rgba(124, 92, 255, 0.18), transparent 60%),
+      radial-gradient(700px 400px at -10% 110%, rgba(217, 70, 239, 0.14), transparent 60%),
+      linear-gradient(180deg, #0a0f24 0%, #050816 100%);
+    background-attachment: fixed;
+    position: relative;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  /* Plugin scrollbar: gradient purple */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #7c3aed, #a855f7);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a855f7;
+  }
+}
+
+/* ──────────────────────────────────────────────
+   Custom utility classes — matching plugin
+   ────────────────────────────────────────────── */
+@layer utilities {
+  /* Plugin: --gradient: linear-gradient(135deg, #7c3aed → #a855f7 → #d946ef) */
+  .text-gradient {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #d946ef 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Plugin: --glass: rgba(22, 28, 64, 0.55) with backdrop blur */
+  .glass {
+    background: rgba(22, 28, 64, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(124, 92, 255, 0.18);
+  }
+
+  /* Plugin: --shadow-glow: 0 0 24px rgba(124, 92, 255, 0.25) */
+  .glow-primary {
+    box-shadow: 0 0 24px rgba(124, 92, 255, 0.25);
+  }
+  .glow-success {
+    box-shadow: 0 0 24px rgba(52, 211, 153, 0.25);
+  }
+
+  /* Animated gradient border using plugin colors */
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      rgba(124, 92, 255, 0.4),
+      rgba(217, 70, 239, 0.2),
+      transparent
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Shimmer animation for loading */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      #111634 0%,
+      #161c40 50%,
+      #111634 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Fade-in-up animation */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Plugin: pulse-dot animation for status indicators */
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+  @keyframes pulseGlow {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+    }
+  }
+
+  /* Stagger delay helpers */
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+  .delay-400 {
+    animation-delay: 400ms;
+  }
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+
+  /* Employee row hover — matches plugin glass-border-hover */
+  .emp-row:hover {
+    border-color: rgba(124, 92, 255, 0.4) !important;
+    background: rgba(22, 28, 64, 0.6) !important;
+  }
+}

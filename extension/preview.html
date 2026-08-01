@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quasara Track — Preview</title>
+  <link rel="stylesheet" href="popup.css">
+  <style>
+    body { width: 420px; min-height: 540px; margin: 0 auto; }
+    .preview-banner {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 99;
+      background: linear-gradient(90deg, #7c3aed, #d946ef);
+      color: #fff; font-size: 11px; text-align: center; padding: 4px;
+      font-family: sans-serif;
+    }
+    body { padding-top: 22px; }
+  </style>
+</head>
+<body>
+  <div class="preview-banner">PREVIEW MODE — sample data injected (chrome APIs mocked)</div>
+
+  <div class="header">
+    <div class="logo">
+      <span class="logo-icon"><img src="icons/icon-48.png" alt="Quasara" /></span>
+      <span class="logo-text">Quasara Track</span>
+    </div>
+    <div class="header-status">
+      <span class="status-dot"></span>
+      <span id="header-status-text">Active · 3h 24m</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="today">Today</button>
+    <button class="tab-btn" data-tab="summary">Summary</button>
+    <button class="tab-btn" data-tab="activity">Activity Log</button>
+    <button class="tab-btn" data-tab="settings">Settings</button>
+  </div>
+
+  <!-- TODAY TAB -->
+  <div id="today-tab" class="tab-content active">
+    <div class="today-header">
+      <div id="today-date" class="today-date">Saturday, August 1</div>
+      <div id="synced-badge" class="synced-badge synced-yes">✓ Synced to Sheets</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-label">Active Time</div><div class="stat-value" id="stat-active">3h 24m</div></div>
+      <div class="stat-card"><div class="stat-label">Inactive Time</div><div class="stat-value" id="stat-inactive">42m</div></div>
+      <div class="stat-card"><div class="stat-label">Keystrokes</div><div class="stat-value" id="stat-keystrokes">8,412</div></div>
+      <div class="stat-card"><div class="stat-label">Clicks</div><div class="stat-value" id="stat-clicks">1,205</div></div>
+      <div class="stat-card"><div class="stat-label">Copies / Pastes</div><div class="stat-value" id="stat-cp">38 / 22</div></div>
+    </div>
+
+    <div class="section-title-row">
+      <div class="section-title">Tabs Used Today</div>
+      <span id="tab-count" class="tab-count-badge">5 tabs · 3 open</span>
+    </div>
+    <div id="tab-list" class="tab-list">
+      <div class="tab-item tab-active" style="animation-delay:0s">
+        <div class="tab-item-row">
+          <div class="tab-item-domain">github.com</div>
+          <span class="tab-state-badge tab-state-active">● Active</span>
+        </div>
+        <div class="tab-item-title">quasara-track/manifest.json at main</div>
+        <div class="tab-item-stats"><span>Active: 1h 45m</span><span>Idle: 5m</span><span>Keys: 4200</span><span>Clicks: 580</span><span>C/P: 18/12</span></div>
+      </div>
+      <div class="tab-item tab-open" style="animation-delay:0.04s">
+        <div class="tab-item-row">
+          <div class="tab-item-domain">stackoverflow.com</div>
+          <span class="tab-state-badge tab-state-open">Open</span>
+        </div>
+        <div class="tab-item-title">javascript - How to animate SVG stroke-dashoffset</div>
+        <div class="tab-item-stats"><span>Active: 52m</span><span>Idle: 12m</span><span>Keys: 320</span><span>Clicks: 210</span><span>C/P: 12/4</span></div>
+      </div>
+      <div class="tab-item tab-open" style="animation-delay:0.08s">
+        <div class="tab-item-row">
+          <div class="tab-item-domain">mail.google.com</div>
+          <span class="tab-state-badge tab-state-open">Open</span>
+        </div>
+        <div class="tab-item-title">Inbox (24) - john@quasara.ai</div>
+        <div class="tab-item-stats"><span>Active: 35m</span><span>Idle: 18m</span><span>Keys: 1900</span><span>Clicks: 240</span><span>C/P: 5/4</span></div>
+      </div>
+      <div class="tab-item tab-closed" style="animation-delay:0.12s">
+        <div class="tab-item-row">
+          <div class="tab-item-domain">docs.google.com</div>
+          <span class="tab-state-badge tab-state-closed">Closed</span>
+        </div>
+        <div class="tab-item-title">Sprint Plan Q3 - Google Docs</div>
+        <div class="tab-item-stats"><span>Active: 12m</span><span>Idle: 7m</span><span>Keys: 980</span><span>Clicks: 95</span><span>C/P: 3/2</span></div>
+      </div>
+      <div class="tab-item tab-closed" style="animation-delay:0.16s">
+        <div class="tab-item-row">
+          <div class="tab-item-domain">chat.google.com</div>
+          <span class="tab-state-badge tab-state-closed">Closed</span>
+        </div>
+        <div class="tab-item-title">Team chat - #engineering</div>
+        <div class="tab-item-stats"><span>Active: 8m</span><span>Idle: 2m</span><span>Keys: 412</span><span>Clicks: 80</span><span>C/P: 1/0</span></div>
+      </div>
+    </div>
+
+    <div class="ai-summary-section">
+      <div class="section-title">AI Daily Summary</div>
+      <div class="ai-summary-text">Solid focus on extension development with GitHub as the hub.
+
+Most of the day was spent coding the Quasara Track extension, with research breaks on Stack Overflow and a moderate amount of email communication.</div>
+    </div>
+
+    <div class="sync-section">
+      <button id="sync-btn" class="sync-btn"><span class="sync-icon">&#x21bb;</span> Generate Summary &amp; Sync</button>
+      <div id="sync-status" class="sync-status"></div>
+    </div>
+  </div>
+
+  <!-- SUMMARY TAB -->
+  <div id="summary-tab" class="tab-content" style="display:none;">
+    <div id="summary-empty" class="empty-state" style="display:none;">
+      <div class="empty-icon">&#x1F4CA;</div>
+      <div>No AI summary yet.</div>
+      <div class="empty-hint">Click "Generate AI Summary Now" to analyze your workday.</div>
+    </div>
+
+    <div id="summary-rich">
+      <div class="score-header">
+        <div class="score-ring-wrapper">
+          <svg class="score-ring" width="80" height="80" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="34" fill="none" stroke="#1a2046" stroke-width="6"/>
+            <circle id="score-ring-fill" cx="40" cy="40" r="34" fill="none" stroke="#34d399" stroke-width="6"
+              stroke-dasharray="213.6" stroke-dashoffset="42.72" stroke-linecap="round" transform="rotate(-90 40 40)"
+              style="transition: stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1), stroke 0.6s ease;"/>
+          </svg>
+          <div class="score-ring-text">
+            <div class="score-number">82</div>
+            <div class="score-label">High</div>
+          </div>
+        </div>
+        <div class="score-headline-wrapper">
+          <div class="summary-headline">Deep-focus dev day with strong output</div>
+          <div class="summary-overview">Most of the day was spent heads-down building the Quasara Track extension, with focused research breaks and moderate communication.</div>
+        </div>
+      </div>
+
+      <div class="section-title">Key Metrics</div>
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="metric-label">Active Ratio</div><div class="metric-value">83%</div></div>
+        <div class="metric-card"><div class="metric-label">Typing</div><div class="metric-value">High · 2,470/hr</div></div>
+        <div class="metric-card"><div class="metric-label">Copy/Paste</div><div class="metric-value">1.7:1</div></div>
+        <div class="metric-card"><div class="metric-label">Tab Switching</div><div class="metric-value">Moderate</div></div>
+      </div>
+
+      <div id="tasks-section">
+        <div class="section-title">Tasks Completed</div>
+        <div class="tasks-list">
+          <div class="task-card" style="animation-delay:0s">
+            <div class="task-header"><span class="task-name">Redesign extension popup UI</span><span class="task-duration">1h 45m</span></div>
+            <div class="task-tool">github.com</div>
+            <div class="task-actions"><span class="task-action-tag">edited popup.css</span><span class="task-action-tag">committed manifest</span></div>
+            <div class="task-outcome">→ Modern dark theme shipped</div>
+          </div>
+          <div class="task-card" style="animation-delay:0.06s">
+            <div class="task-header"><span class="task-name">Research SVG animations</span><span class="task-duration">0h 52m</span></div>
+            <div class="task-tool">stackoverflow.com</div>
+            <div class="task-actions"><span class="task-action-tag">read 6 answers</span><span class="task-action-tag">copied snippet</span></div>
+            <div class="task-outcome">→ Score ring animation implemented</div>
+          </div>
+          <div class="task-card" style="animation-delay:0.12s">
+            <div class="task-header"><span class="task-name">Triage email inbox</span><span class="task-duration">0h 35m</span></div>
+            <div class="task-tool">mail.google.com</div>
+            <div class="task-actions"><span class="task-action-tag">replied to 8</span><span class="task-action-tag">archived 12</span></div>
+            <div class="task-outcome">→ Inbox down to 4 unread</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="topsites-section">
+        <div class="section-title">Top Sites</div>
+        <div class="topsites-list">
+          <div class="site-bar" style="animation-delay:0s"><div class="site-info"><span class="site-dot" style="background:#60a5fa;color:#60a5fa"></span><span class="site-domain">github.com</span><span class="site-cat" style="color:#60a5fa">Development</span></div><span class="site-time">1h 45m</span></div>
+          <div class="site-bar" style="animation-delay:0.05s"><div class="site-info"><span class="site-dot" style="background:#a855f7;color:#a855f7"></span><span class="site-domain">stackoverflow.com</span><span class="site-cat" style="color:#a855f7">Research</span></div><span class="site-time">0h 52m</span></div>
+          <div class="site-bar" style="animation-delay:0.1s"><div class="site-info"><span class="site-dot" style="background:#34d399;color:#34d399"></span><span class="site-domain">mail.google.com</span><span class="site-cat" style="color:#34d399">Communication</span></div><span class="site-time">0h 35m</span></div>
+          <div class="site-bar" style="animation-delay:0.15s"><div class="site-info"><span class="site-dot" style="background:#60a5fa;color:#60a5fa"></span><span class="site-domain">docs.google.com</span><span class="site-cat" style="color:#60a5fa">Development</span></div><span class="site-time">0h 12m</span></div>
+        </div>
+      </div>
+
+      <div id="timeline-section">
+        <div class="section-title">Activity Timeline</div>
+        <div class="timeline-list">
+          <div class="timeline-item" style="animation-delay:0s"><div class="timeline-dot"></div><div class="timeline-time">09:15</div><div class="timeline-event">Started coding session on GitHub</div></div>
+          <div class="timeline-item" style="animation-delay:0.05s"><div class="timeline-dot"></div><div class="timeline-time">10:30</div><div class="timeline-event">Research break — SVG animations</div></div>
+          <div class="timeline-item" style="animation-delay:0.1s"><div class="timeline-dot"></div><div class="timeline-time">11:45</div><div class="timeline-event">Email triage</div></div>
+          <div class="timeline-item" style="animation-delay:0.15s"><div class="timeline-dot"></div><div class="timeline-time">13:00</div><div class="timeline-event">Lunch break</div></div>
+          <div class="timeline-item" style="animation-delay:0.2s"><div class="timeline-dot"></div><div class="timeline-time">14:00</div><div class="timeline-event">Resumed extension redesign</div></div>
+        </div>
+      </div>
+
+      <div id="idle-section">
+        <div class="section-title">Idle Periods</div>
+        <div class="idle-list">
+          <div class="idle-item" style="animation-delay:0s"><span class="idle-time">13:00 - 13:45</span><span class="idle-duration">45m</span><span class="idle-reason">Lunch break</span></div>
+          <div class="idle-item" style="animation-delay:0.05s"><span class="idle-time">15:20 - 15:32</span><span class="idle-duration">12m</span><span class="idle-reason">Coffee</span></div>
+        </div>
+      </div>
+
+      <div class="dual-col">
+        <div id="strengths-section">
+          <div class="section-title positive">Strengths</div>
+          <div class="bullet-list">
+            <div class="bullet-item positive-item" style="animation-delay:0s">✓ Long uninterrupted focus blocks</div>
+            <div class="bullet-item positive-item" style="animation-delay:0.05s">✓ High typing intensity shows engagement</div>
+            <div class="bullet-item positive-item" style="animation-delay:0.1s">✓ Balanced research vs. implementation</div>
+          </div>
+        </div>
+        <div id="concerns-section">
+          <div class="section-title negative">Concerns</div>
+          <div class="bullet-list">
+            <div class="bullet-item negative-item" style="animation-delay:0s">⚠ Single long idle at lunch</div>
+            <div class="bullet-item negative-item" style="animation-delay:0.05s">⚠ Heavy tab switching near 3 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="recs-section">
+        <div class="section-title accent">Recommendations</div>
+        <div class="bullet-list">
+          <div class="bullet-item accent-item" style="animation-delay:0s">💡 Try Pomodoro 25/5 to reduce idle gaps</div>
+          <div class="bullet-item accent-item" style="animation-delay:0.05s">💡 Batch email to 2 slots/day</div>
+          <div class="bullet-item accent-item" style="animation-delay:0.1s">💡 Keep dev tabs pinned to cut switching</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY TAB -->
+  <div id="activity-tab" class="tab-content" style="display:none;">
+    <div class="section-title">Detailed Action Log</div>
+    <div id="activity-log-list" class="activity-log-list">
+      <div class="action-item" style="animation-delay:0s"><span class="action-time">14:32:18</span><span class="action-icon">🔘</span><span class="action-type">BUTTON_CLICK</span><span class="action-domain">github.com</span><span class="action-label">Commit changes</span></div>
+      <div class="action-item" style="animation-delay:0.02s"><span class="action-time">14:31:55</span><span class="action-icon">⏎</span><span class="action-type">ENTER_KEY</span><span class="action-domain">github.com</span><span class="action-label">commit message</span></div>
+      <div class="action-item" style="animation-delay:0.04s"><span class="action-time">14:30:12</span><span class="action-icon">📋</span><span class="action-type">COPY</span><span class="action-domain">stackoverflow.com</span><span class="action-label">copied text</span></div>
+      <div class="action-item" style="animation-delay:0.06s"><span class="action-time">14:28:40</span><span class="action-icon">🔗</span><span class="action-type">LINK_CLICK</span><span class="action-domain">stackoverflow.com</span><span class="action-label">SVG stroke-dashoffset</span><span class="action-href">/questions/12345</span></div>
+      <div class="action-item" style="animation-delay:0.08s"><span class="action-time">14:25:00</span><span class="action-icon">🧭</span><span class="action-type">NAVIGATE</span><span class="action-domain">stackoverflow.com</span><span class="action-label">page navigation</span></div>
+      <div class="action-item" style="animation-delay:0.1s"><span class="action-time">14:22:33</span><span class="action-icon">📤</span><span class="action-type">FORM_SUBMIT</span><span class="action-domain">mail.google.com</span><span class="action-label">compose</span></div>
+      <div class="action-item" style="animation-delay:0.12s"><span class="action-time">14:20:11</span><span class="action-icon">📄</span><span class="action-type">PASTE</span><span class="action-domain">mail.google.com</span><span class="action-label">pasted text</span></div>
+      <div class="action-item" style="animation-delay:0.14s"><span class="action-time">14:18:02</span><span class="action-icon">📑</span><span class="action-type">TAB_CLICK</span><span class="action-domain">mail.google.com</span><span class="action-label">Inbox</span></div>
+    </div>
+  </div>
+
+  <!-- SETTINGS TAB -->
+  <div id="settings-tab" class="tab-content" style="display:none;">
+    <div class="form-group" style="animation-delay:0.05s">
+      <label for="employee-name">Employee Name</label>
+      <input type="text" id="employee-name" value="John Doe" />
+    </div>
+    <div class="form-group" style="animation-delay:0.1s">
+      <label for="openai-key">OpenAI API Key</label>
+      <input type="password" id="openai-key" value="sk-xxxxxxxxxxxx" />
+      <small class="hint">Used to generate daily activity summaries.</small>
+    </div>
+    <div class="form-group" style="animation-delay:0.15s">
+      <label for="apps-script-url">Google Apps Script URL</label>
+      <input type="url" id="apps-script-url" value="https://script.google.com/macros/s/AKfyc.../exec" />
+      <small class="hint">Deploy the provided Apps Script and paste the web app URL here.</small>
+    </div>
+    <div class="form-group" style="animation-delay:0.2s">
+      <label for="idle-threshold">Inactivity Threshold: <span id="idle-value">5</span> minutes</label>
+      <input type="range" id="idle-threshold" min="1" max="30" value="5" />
+    </div>
+    <div class="form-group" style="animation-delay:0.25s">
+      <label><input type="checkbox" id="auto-sync" checked /> Auto-sync at end of day</label>
+    </div>
+    <div class="form-group" style="animation-delay:0.3s">
+      <label for="sync-time">Auto-sync Time</label>
+      <input type="time" id="sync-time" value="18:00" />
+    </div>
+    <button id="save-settings" class="save-btn">Save Settings</button>
+    <div id="save-status" class="save-status"></div>
+  </div>
+
+  <script>
+    // Tab switching for preview (no chrome APIs needed)
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(c => { c.classList.remove("active"); c.style.display = "none"; });
+        btn.classList.add("active");
+        const target = document.getElementById(`${btn.dataset.tab}-tab`);
+        target.style.animation = "none"; void target.offsetWidth; target.style.animation = "";
+        target.style.display = "block";
+        target.classList.add("active");
+      });
+    });
+    document.getElementById("idle-threshold").addEventListener("input", (e) => {
+      document.getElementById("idle-value").textContent = e.target.value;
+    });
+    document.getElementById("save-settings").addEventListener("click", () => {
+      const s = document.getElementById("save-status");
+      s.textContent = "Settings saved!";
+      setTimeout(() => s.textContent = "", 2000);
+    });
+    document.getElementById("sync-btn").addEventListener("click", function() {
+      this.disabled = true;
+      const orig = this.innerHTML;
+      this.innerHTML = '<span class="sync-icon" style="animation: spin 1s linear infinite">&#x21bb;</span> Generating AI Summary...';
+      const st = document.getElementById("sync-status");
+      st.textContent = "Flushing data and calling OpenAI...";
+      setTimeout(() => {
+        this.disabled = false; this.innerHTML = orig;
+        st.textContent = "Summary generated & synced successfully!";
+        st.className = "sync-status success";
+        setTimeout(() => { st.textContent = ""; st.className = "sync-status"; }, 4000);
+      }, 1800);
+    });
+    const style = document.createElement("style");
+    style.textContent = "@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }";
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

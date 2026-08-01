@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quasara Track</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <!-- ============= AUTH SCREEN (Login / Signup) ============= -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-header">
+      <div class="logo">
+        <span class="logo-icon"><img src="icons/icon-48.png" alt="Quasara" /></span>
+        <span class="logo-text">Quasara Track</span>
+      </div>
+    </div>
+
+    <div class="auth-card">
+      <!-- Tab switcher -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" data-auth-tab="login">Sign In</button>
+        <button class="auth-tab-btn" data-auth-tab="signup">Sign Up</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="auth-form active">
+        <div class="auth-field">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" placeholder="you@example.com" required />
+        </div>
+        <div class="auth-field">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" required />
+        </div>
+        <div id="login-error" class="auth-error" style="display:none;"></div>
+        <button type="submit" id="login-submit" class="auth-submit-btn">
+          Sign In
+        </button>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="signup-form" class="auth-form">
+        <div class="auth-field">
+          <label for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" placeholder="John Doe" required />
+        </div>
+        <div class="auth-field">
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" placeholder="you@example.com" required />
+        </div>
+        <div class="auth-field">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" placeholder="At least 6 characters" required />
+        </div>
+        <div id="signup-error" class="auth-error" style="display:none;"></div>
+        <button type="submit" id="signup-submit" class="auth-submit-btn">
+          Create Account
+        </button>
+      </form>
+    </div>
+
+    <p class="auth-footer">Quasara Track · Employee Productivity</p>
+  </div>
+
+  <!-- ============= MAIN APP (shown after login) ============= -->
+  <div id="main-app" style="display:none;">
+
+    <div class="header">
+      <div class="logo">
+        <span class="logo-icon"><img src="icons/icon-48.png" alt="Quasara" /></span>
+        <span class="logo-text">Quasara Track</span>
+      </div>
+      <div class="header-status">
+        <span class="status-dot"></span>
+        <span id="header-status-text">Tracking</span>
+      </div>
+    </div>
+
+    <!-- User bar -->
+    <div class="user-bar">
+      <div class="user-avatar" id="user-avatar">U</div>
+      <div class="user-info">
+        <div class="user-name" id="user-name">User</div>
+        <div class="user-email" id="user-email">user@example.com</div>
+      </div>
+      <button id="logout-btn" class="logout-btn" title="Sign Out">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="today">Today</button>
+      <button class="tab-btn" data-tab="summary">Summary</button>
+      <button class="tab-btn" data-tab="activity">Activity Log</button>
+      <button class="tab-btn" data-tab="settings">Settings</button>
+    </div>
+
+    <!-- TODAY TAB -->
+    <div id="today-tab" class="tab-content active">
+      <div class="today-header">
+        <div id="today-date" class="today-date">Today</div>
+        <div id="synced-badge" class="synced-badge synced-no" style="display:none;">Not synced yet</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Active Time</div>
+          <div class="stat-value" id="stat-active">0s</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Inactive Time</div>
+          <div class="stat-value" id="stat-inactive">0s</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Keystrokes</div>
+          <div class="stat-value" id="stat-keystrokes">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Clicks</div>
+          <div class="stat-value" id="stat-clicks">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Copies / Pastes</div>
+          <div class="stat-value" id="stat-cp">0 / 0</div>
+        </div>
+      </div>
+
+      <div class="section-title-row">
+        <div class="section-title">Tabs Used Today</div>
+        <span id="tab-count" class="tab-count-badge"></span>
+      </div>
+      <div id="tab-list" class="tab-list">
+        <div class="empty-state">No tabs tracked yet today.</div>
+      </div>
+
+      <div id="ai-summary-section" class="ai-summary-section" style="display:none;">
+        <div class="section-title">AI Daily Summary</div>
+        <div id="ai-summary-text" class="ai-summary-text"></div>
+      </div>
+
+      <div class="sync-section">
+        <button id="sync-btn" class="sync-btn">
+          <span class="sync-icon">&#x21bb;</span> Generate Summary &amp; Sync
+        </button>
+        <div id="sync-status" class="sync-status"></div>
+      </div>
+    </div>
+
+    <!-- SUMMARY TAB -->
+    <div id="summary-tab" class="tab-content">
+      <div id="summary-empty" class="empty-state">
+        <div class="empty-icon">&#x1F4CA;</div>
+        <div>No AI summary yet.</div>
+        <div class="empty-hint">Click "Generate AI Summary Now" to analyze your workday.</div>
+      </div>
+
+      <div id="summary-rich" style="display:none;">
+        <div class="score-header">
+          <div class="score-ring-wrapper">
+            <svg class="score-ring" width="80" height="80" viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="34" fill="none" stroke="#1a2046" stroke-width="6"/>
+              <circle id="score-ring-fill" cx="40" cy="40" r="34" fill="none" stroke="#7c3aed" stroke-width="6"
+                stroke-dasharray="213.6" stroke-dashoffset="213.6" stroke-linecap="round" transform="rotate(-90 40 40)"
+                style="transition: stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1), stroke 0.6s ease;"/>
+            </svg>
+            <div class="score-ring-text">
+              <div id="score-number" class="score-number">0</div>
+              <div id="score-label" class="score-label">—</div>
+            </div>
+          </div>
+          <div class="score-headline-wrapper">
+            <div id="summary-headline" class="summary-headline"></div>
+            <div id="summary-overview" class="summary-overview"></div>
+          </div>
+        </div>
+
+        <div class="section-title">Key Metrics</div>
+        <div id="metrics-grid" class="metrics-grid"></div>
+
+        <div id="tasks-section">
+          <div class="section-title">Tasks Completed</div>
+          <div id="tasks-list" class="tasks-list"></div>
+        </div>
+
+        <div id="topsites-section">
+          <div class="section-title">Top Sites</div>
+          <div id="topsites-list" class="topsites-list"></div>
+        </div>
+
+        <div id="timeline-section">
+          <div class="section-title">Activity Timeline</div>
+          <div id="timeline-list" class="timeline-list"></div>
+        </div>
+
+        <div id="idle-section">
+          <div class="section-title">Idle Periods</div>
+          <div id="idle-list" class="idle-list"></div>
+        </div>
+
+        <div class="dual-col">
+          <div id="strengths-section">
+            <div class="section-title positive">Strengths</div>
+            <div id="strengths-list" class="bullet-list positive-list"></div>
+          </div>
+          <div id="concerns-section">
+            <div class="section-title negative">Concerns</div>
+            <div id="concerns-list" class="bullet-list negative-list"></div>
+          </div>
+        </div>
+
+        <div id="recs-section">
+          <div class="section-title accent">Recommendations</div>
+          <div id="recs-list" class="bullet-list accent-list"></div>
+        </div>
+      </div>
+
+      <div class="sync-section" style="margin-top:16px;">
+        <button id="summary-sync-btn" class="sync-btn">
+          <span class="sync-icon">&#x21bb;</span> Generate AI Summary Now
+        </button>
+        <div id="summary-sync-status" class="sync-status"></div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY TAB -->
+    <div id="activity-tab" class="tab-content">
+      <div class="section-title">Detailed Action Log</div>
+      <div id="activity-log-list" class="activity-log-list">
+        <div class="empty-state">No actions logged yet.</div>
+      </div>
+    </div>
+
+    <!-- SETTINGS TAB -->
+    <div id="settings-tab" class="tab-content">
+      <div class="form-group">
+        <label for="openai-key">OpenAI API Key</label>
+        <input type="password" id="openai-key" placeholder="sk-..." />
+        <small class="hint">Used to generate daily activity summaries.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="apps-script-url">Google Apps Script URL</label>
+        <input type="url" id="apps-script-url" placeholder="https://script.google.com/macros/s/.../exec" />
+        <small class="hint">Deploy the provided Apps Script and paste the web app URL here.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="idle-threshold">Inactivity Threshold: <span id="idle-value">5</span> minutes</label>
+        <input type="range" id="idle-threshold" min="1" max="30" value="5" />
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="auto-sync" checked />
+          Auto-sync at end of day
+        </label>
+      </div>
+
+      <div class="form-group" id="sync-time-group">
+        <label for="sync-time">Auto-sync Time</label>
+        <input type="time" id="sync-time" value="18:00" />
+      </div>
+
+      <button id="save-settings" class="save-btn">Save Settings</button>
+      <div id="save-status" class="save-status"></div>
+    </div>
+
+  </div><!-- /main-app -->
+
+  <!-- bcryptjs for password hashing (needed in popup for signup) -->
+  <script src="lib/bcryptjs.min.js"></script>
+  <!-- Auth + settings + popup logic -->
+  <script src="auth.js"></script>
+  <script src="settings.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
